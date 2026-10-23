@@ -173,15 +173,76 @@
     .notes { position: static; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
+  /* loader: the chip cannonballs off the diving board into the queso */
+  .loader {
+    position: fixed; inset: 0; z-index: 20;
+    display: grid; place-items: center;
+    background: #fedb02;
+    transition: opacity .45s ease, visibility .45s;
+  }
+  .loader.done { opacity: 0; visibility: hidden; }
+  .loader-scene {
+    --u: calc(100cqw / 1200);
+    container-type: inline-size;
+    position: relative;
+    width: min(440px, 80vw);
+    aspect-ratio: 1200 / 825;
+  }
+  .loader-scene > * { position: absolute; }
+  .loader-bowl, .loader-splash { inset: 0; width: 100%; height: 100%; }
+  .loader-dive {
+    inset: 0;
+    clip-path: polygon(-50% -100%, 150% -100%, 150% calc(470 * var(--u)), -50% calc(470 * var(--u)));
+  }
+  .loader-chip {
+    position: absolute;
+    left: calc(600 * var(--u)); top: calc(-60 * var(--u));
+    width: calc(291 * var(--u));
+    transform-origin: 50% 100%;
+    animation: dive 2.2s cubic-bezier(.4,0,.6,1) infinite;
+  }
+  .loader-splash {
+    clip-path: circle(0 at calc(745 * var(--u)) calc(470 * var(--u)));
+    animation: splash 2.2s ease-out infinite;
+  }
+  @keyframes dive {
+    0%   { transform: translate(calc(-230 * var(--u)), calc(-57 * var(--u))); opacity: 0; }
+    5%   { transform: translate(calc(-230 * var(--u)), calc(-57 * var(--u))); opacity: 1; }
+    12%  { transform: translate(calc(-230 * var(--u)), calc(-50 * var(--u))) scale(1.05, .88); }
+    20%  { transform: translate(calc(-180 * var(--u)), calc(-160 * var(--u))) rotate(-6deg); }
+    32%  { transform: translate(calc(-100 * var(--u)), calc(-205 * var(--u))) rotate(-14deg); }
+    46%  { transform: translate(calc(-15 * var(--u)), calc(-70 * var(--u))) rotate(-4deg); animation-timing-function: ease-in; }
+    54%  { transform: translate(0, calc(60 * var(--u))) scale(.97, 1.03); }
+    62%, 100% { transform: translate(0, calc(600 * var(--u))); }
+  }
+  @keyframes splash {
+    0%, 53% { clip-path: circle(0 at calc(745 * var(--u)) calc(470 * var(--u))); opacity: 1; }
+    63%  { clip-path: circle(calc(720 * var(--u)) at calc(745 * var(--u)) calc(470 * var(--u))); opacity: 1; }
+    86%  { clip-path: circle(calc(720 * var(--u)) at calc(745 * var(--u)) calc(470 * var(--u))); opacity: 1; }
+    96%, 100% { clip-path: circle(calc(720 * var(--u)) at calc(745 * var(--u)) calc(470 * var(--u))); opacity: 0; }
+  }
+  .loading .notes h1 span { animation-play-state: paused; }
+  .loading { overflow: hidden; }
+
   @media (prefers-reduced-motion: reduce) {
     .notes h1 span { animation: none; }
     .tile, .notes .ps, .notes .ps img { transition: none; }
     .shine { display: none; }
     .tile.glint { animation: none; }
+    .loader-chip, .loader-splash { animation: none; }
+    .loader-chip { transform: translate(calc(-230 * var(--u)), calc(-57 * var(--u))); }
   }
 </style>
 </head>
-<body>
+<body class="loading">
+
+<div class="loader" role="status" aria-label="Loading">
+  <div class="loader-scene">
+    <img class="loader-bowl" src="img/loader/bowl.png" alt="">
+    <div class="loader-dive"><img class="loader-chip" src="img/loader/chip.png" alt=""></div>
+    <img class="loader-splash" src="img/loader/splash.png" alt="">
+  </div>
+</div>
 
 <main class="board">
   <div class="notes">
@@ -251,19 +312,40 @@
     big.src = img.src; big.alt = img.alt;
     box.hidden = false;
   }));
-  // light the board up in a diagonal wave on load
-  const tiles = [...document.querySelectorAll('.tile')];
-  const x0 = tiles[0].offsetLeft, y0 = tiles[0].offsetTop;
-  const step = tiles[1].offsetLeft - x0 || tiles[0].offsetWidth;
-  tiles.forEach(t => {
-    const col = Math.round((t.offsetLeft - x0) / step), row = Math.round((t.offsetTop - y0) / step);
-    const d = (row + col) * 0.09 + 0.3 + 's';
-    t.style.setProperty('--d', d);
-    t.classList.add('glint');
-    const shine = document.createElement('span');
-    shine.className = 'shine';
-    t.append(shine);
-    shine.addEventListener('animationend', () => { shine.remove(); t.classList.remove('glint'); });
+  // light the board up in a diagonal wave once the loader clears
+  function shimmer() {
+    const tiles = [...document.querySelectorAll('.tile')];
+    const x0 = tiles[0].offsetLeft, y0 = tiles[0].offsetTop;
+    const step = tiles[1].offsetLeft - x0 || tiles[0].offsetWidth;
+    tiles.forEach(t => {
+      const col = Math.round((t.offsetLeft - x0) / step), row = Math.round((t.offsetTop - y0) / step);
+      const d = (row + col) * 0.09 + 0.3 + 's';
+      t.style.setProperty('--d', d);
+      t.classList.add('glint');
+      const shine = document.createElement('span');
+      shine.className = 'shine';
+      t.append(shine);
+      shine.addEventListener('animationend', () => { shine.remove(); t.classList.remove('glint'); });
+    });
+  }
+
+  // keep the dive going until the page has loaded and the chip has made at least one full splash
+  const loader = document.querySelector('.loader');
+  const chip = loader.querySelector('.loader-chip');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let loaded = false, dives = 0;
+  function finish() {
+    if (!loaded || (!still && dives < 1) || loader.classList.contains('done')) return;
+    loader.classList.add('done');
+    document.body.classList.remove('loading');
+    shimmer();
+  }
+  chip.addEventListener('animationiteration', () => { dives++; finish(); });
+  addEventListener('load', () => {
+    loaded = true;
+    finish();
+    // fallback in case the animation is paused (background tab) and never reports a full dive
+    setTimeout(() => { dives = Math.max(dives, 1); finish(); }, 2400);
   });
   box.addEventListener('click', () => box.hidden = true);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') box.hidden = true; });
