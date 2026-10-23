@@ -10,8 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,100,1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
+    --board: #2a2a2c;
+    --text: #ece6da;
     --cream: #f6eedd;
-    --ink: #22384f;
     --blue: #2c5b80;
     --sky: #9cc7e6;
     --mustard: #f2b73f;
@@ -22,12 +23,11 @@
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--cream);
-    color: var(--ink);
-    font: 400 17px/1.55 "DM Sans", system-ui, sans-serif;
+    background: var(--board);
+    color: var(--text);
+    font: 400 16px/1.5 "DM Sans", system-ui, sans-serif;
   }
   .display {
     font-family: "Fraunces", Georgia, serif;
@@ -37,71 +37,74 @@
     line-height: 0.86;
   }
 
-  /* hero */
-  .hero {
-    background: var(--blue);
-    color: var(--mustard);
-    min-height: 92vh;
+  /* board: text on the left, tiles on the right */
+  .board {
     display: grid;
-    place-items: center;
-    padding: 64px 16px;
-    position: relative;
-    overflow: hidden;
+    grid-template-columns: minmax(300px, 5fr) 7fr;
+    gap: 56px;
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 56px 40px;
   }
-  .hero h1 {
-    margin: 0;
-    font-size: clamp(76px, 17vw, 240px);
-    text-align: center;
+  .notes { position: sticky; top: 56px; align-self: start; }
+  .notes h1 {
+    margin: 0 0 40px;
+    color: var(--mustard);
+    font-size: clamp(64px, 7.4vw, 124px);
   }
-  .hero h1 span { display: block; }
-  .hero h1 span:nth-child(2) { padding-left: .5em; }
-  .hero h1 span:nth-child(3) { padding-right: .3em; }
-  .hero h1 span:nth-child(1) { animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
-  .hero h1 span:nth-child(2) { animation: rise .9s .12s cubic-bezier(.2,.8,.2,1) both; }
-  .hero h1 span:nth-child(3) { animation: rise .9s .24s cubic-bezier(.2,.8,.2,1) both; }
+  .notes h1 span { display: block; animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
+  .notes h1 span:nth-child(2) { animation-delay: .1s; }
+  .notes h1 span:nth-child(3) { animation-delay: .2s; }
   @keyframes rise { from { opacity: 0; transform: translateY(.25em); } }
-  .hero .scroll {
-    position: absolute;
-    bottom: 24px; left: 50%;
-    transform: translateX(-50%);
-    color: var(--cream);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    text-decoration: none;
+  .notes h2 {
+    margin: 32px 0 6px;
+    color: var(--mustard);
+    font-size: 17px;
+    font-weight: 700;
   }
+  .notes p { margin: 0; max-width: 46ch; }
+  .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
+  .notes li { margin-bottom: 4px; }
+  .notes a { color: inherit; }
 
-  /* sections */
-  section.set { padding: 96px 16px 32px; max-width: 1240px; margin: 0 auto; }
-  .set header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
-  .set h2 { margin: 0; font-size: clamp(48px, 8vw, 104px); color: var(--orange); }
-  .set header p { margin: 0; max-width: 34ch; font-size: 16px; }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
   .tile {
     all: unset;
     cursor: zoom-in;
     aspect-ratio: 1;
-    border-radius: 20px;
+    border-radius: 14px;
     overflow: hidden;
     display: grid;
     place-items: center;
     background: var(--bg, var(--sky));
     transition: transform .25s cubic-bezier(.2,.8,.2,1);
   }
-  .tile:hover { transform: rotate(-1.5deg) scale(1.02); }
-  .tile:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .tile:hover { transform: scale(1.04); }
+  .tile:focus-visible { outline: 3px solid var(--mustard); outline-offset: 4px; }
   .tile img { width: 100%; height: 100%; object-fit: contain; padding: 10%; }
   .tile.full img { object-fit: cover; padding: 0; }
 
-  /* lightbox */
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 32px;
+    padding: 0;
+    list-style: none;
+  }
+  .swatches li {
+    width: 76px; height: 30px;
+    border-radius: 999px;
+    background: var(--c);
+  }
+
   .lightbox {
     position: fixed; inset: 0;
-    background: rgba(20, 30, 42, .9);
+    background: rgba(20, 20, 22, .92);
     display: grid; place-items: center;
     padding: 24px 16px;
     z-index: 10;
@@ -109,70 +112,84 @@
   }
   .lightbox img { max-width: min(900px, 100%); max-height: 88vh; border-radius: 16px; }
 
-  footer {
-    margin-top: 96px;
-    background: var(--mustard);
-    color: var(--ink);
-    padding: 72px 16px 40px;
-    text-align: center;
+  @media (max-width: 900px) {
+    .board { grid-template-columns: 1fr; gap: 40px; padding: 40px 16px; }
+    .notes { position: static; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .swatches li { width: 56px; height: 24px; }
   }
-  footer .display { font-size: clamp(44px, 9vw, 112px); margin: 0 0 24px; }
-  footer p { margin: 0; font-size: 15px; }
-  footer a { color: inherit; }
-
   @media (prefers-reduced-motion: reduce) {
-    .hero h1 span { animation: none !important; }
+    .notes h1 span { animation: none; }
     .tile { transition: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1 class="display"><span>Queso</span><span>you're</span><span>great</span></h1>
-  <a class="scroll" href="#logos">See the logos ↓</a>
-</div>
+<main class="board">
+  <div class="notes">
+    <h1 class="display"><span>Queso</span><span>you're</span><span>great</span></h1>
 
-<section class="set" id="logos">
-  <header>
-    <h2 class="display">The logos</h2>
-    <p>Every version of the wordmark so far.</p>
-  </header>
-  <div class="grid">
-    <button class="tile full" style="--bg:var(--orange)"><img src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
-    <button class="tile full" style="--bg:var(--sky)"><img src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
-    <button class="tile full" style="--bg:var(--green)"><img src="img/queso2026-04.png" alt="Queso You're Great in orange monoline script on green"></button>
-    <button class="tile full" style="--bg:var(--teal)"><img src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
-    <button class="tile full" style="--bg:var(--blue)"><img src="img/queso2026-06.png" alt="Queso You're Great in orange script on bright blue"></button>
-    <button class="tile full" style="--bg:var(--red)"><img src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
-    <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-07.png" alt="Queso You're Great in navy script with a yellow drop shadow"></button>
-    <button class="tile" style="--bg:var(--sky)"><img src="img/chip-10.png" alt="Queso You're Great in navy monoline script"></button>
-    <button class="tile" style="--bg:var(--orange)"><img src="img/chip-06.png" alt="Queso You're Great in navy chunky serif"></button>
-    <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-08.png" alt="Queso You're Great in navy and yellow rounded lowercase"></button>
-    <button class="tile" style="--bg:var(--blue)"><img src="img/chip-09.png" alt="Queso You're Great in navy retro script"></button>
-    <button class="tile" style="--bg:var(--red)"><img src="img/chip-11.png" alt="Queso You're Great in yellow tall capitals"></button>
+    <h2>Overview:</h2>
+    <p>Every version of the Queso You're Great logo so far, plus the chill chip taking a well-earned queso bath.</p>
+
+    <h2>Logos:</h2>
+    <ul>
+      <li>Retro script with a stacked drop shadow</li>
+      <li>Chunky 70s serif</li>
+      <li>Rounded lowercase and tall capitals</li>
+    </ul>
+
+    <h2>Characters:</h2>
+    <ul>
+      <li>The chill chip, in a floral bowl and as stickers</li>
+      <li>The round red-bowl sticker</li>
+    </ul>
+
+    <h2>Colour palette:</h2>
+    <p>Queso yellow and orange on blues, greens and a deep red.</p>
+
+    <h2>Designed by:</h2>
+    <p><a href="https://sarahleach.design">Sarah Leach</a></p>
   </div>
-</section>
 
-<section class="set" id="chip">
-  <header>
-    <h2 class="display">Chill chip</h2>
-    <p>A tortilla chip taking a well-earned queso bath.</p>
-  </header>
-  <div class="grid">
-    <button class="tile full" style="--bg:var(--cream)"><img src="img/chip-01.png" alt="A sleepy tortilla chip relaxing in a bowl of queso"></button>
-    <button class="tile" style="--bg:var(--green)"><img src="img/chip-03.png" alt="The chill chip in a floral bowl"></button>
-    <button class="tile" style="--bg:var(--blue)"><img src="img/chip-12.png" alt="Queso You're Great sticker with the chill chip in yellow"></button>
-    <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-13.png" alt="Queso You're Great sticker with the chill chip in navy"></button>
-    <button class="tile" style="--bg:var(--sky)"><img src="img/sticker-round.png" alt="Round Queso You're Great sticker with a cheerful chip in a red bowl"></button>
-    <button class="tile" style="--bg:var(--teal)"><img src="img/bowl-guy.png" alt="A smiling chip lounging in a bowl of queso"></button>
+  <div>
+    <div class="grid">
+      <button class="tile full" style="--bg:var(--blue)"><img src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
+      <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-07.png" alt="Queso You're Great in navy script with a yellow drop shadow"></button>
+      <button class="tile full" style="--bg:var(--cream)"><img src="img/chip-01.png" alt="A sleepy tortilla chip relaxing in a bowl of queso"></button>
+      <button class="tile full" style="--bg:var(--sky)"><img src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
+
+      <button class="tile full" style="--bg:var(--red)"><img src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
+      <button class="tile" style="--bg:var(--cream)"><img src="img/chip-12.png" alt="Queso You're Great sticker with the chill chip in yellow"></button>
+      <button class="tile full" style="--bg:var(--green)"><img src="img/queso2026-04.png" alt="Queso You're Great in orange monoline script on green"></button>
+      <button class="tile" style="--bg:var(--orange)"><img src="img/chip-06.png" alt="Queso You're Great in navy chunky serif"></button>
+
+      <button class="tile" style="--bg:var(--sky)"><img src="img/sticker-round.png" alt="Round Queso You're Great sticker with a cheerful chip in a red bowl"></button>
+      <button class="tile full" style="--bg:var(--teal)"><img src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
+      <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-13.png" alt="Queso You're Great sticker with the chill chip in navy"></button>
+      <button class="tile" style="--bg:var(--blue)"><img src="img/chip-09.png" alt="Queso You're Great in navy retro script"></button>
+
+      <button class="tile full" style="--bg:var(--blue)"><img src="img/queso2026-06.png" alt="Queso You're Great in orange script on bright blue"></button>
+      <button class="tile" style="--bg:var(--green)"><img src="img/chip-03.png" alt="The chill chip in a floral bowl"></button>
+      <button class="tile" style="--bg:var(--sky)"><img src="img/chip-10.png" alt="Queso You're Great in navy monoline script"></button>
+      <button class="tile" style="--bg:var(--red)"><img src="img/chip-11.png" alt="Queso You're Great in yellow tall capitals"></button>
+
+      <button class="tile" style="--bg:var(--mustard)"><img src="img/chip-08.png" alt="Queso You're Great in navy and yellow rounded lowercase"></button>
+      <button class="tile" style="--bg:var(--teal)"><img src="img/bowl-guy.png" alt="A smiling chip lounging in a bowl of queso"></button>
+    </div>
+
+    <ul class="swatches" aria-label="Colour palette">
+      <li style="--c:var(--mustard)"></li>
+      <li style="--c:var(--orange)"></li>
+      <li style="--c:var(--cream)"></li>
+      <li style="--c:var(--sky)"></li>
+      <li style="--c:var(--blue)"></li>
+      <li style="--c:var(--green)"></li>
+      <li style="--c:var(--red)"></li>
+    </ul>
   </div>
-</section>
-
-<footer>
-  <p class="display">Queso you're great.</p>
-  <p>Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
-</footer>
+</main>
 
 <div class="lightbox" hidden><img alt=""></div>
 
@@ -182,7 +199,6 @@
   document.querySelectorAll('.tile').forEach(t => t.addEventListener('click', () => {
     const img = t.querySelector('img');
     big.src = img.src; big.alt = img.alt;
-    box.style.background = '';
     box.hidden = false;
   }));
   box.addEventListener('click', () => box.hidden = true);
