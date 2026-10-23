@@ -47,7 +47,8 @@
     margin: 0 auto;
     padding: 56px 40px;
   }
-  .notes { position: sticky; top: 56px; align-self: start; }
+  .notes { align-self: start; }
+  @media (min-width: 901px) and (min-height: 960px) { .notes { position: sticky; top: 56px; } }
   .notes h1 {
     margin: 0 0 40px;
     color: var(--mustard);
@@ -63,7 +64,11 @@
     font-size: 17px;
     font-weight: 700;
   }
-  .notes p { margin: 0; max-width: 46ch; }
+  .notes h2 { margin-top: 0; font-size: 20px; }
+  .notes p { margin: 0 0 14px; max-width: 46ch; }
+  .notes .sign { color: var(--mustard); font-weight: 700; }
+  .notes .ps { font-size: 14px; opacity: .8; }
+  .notes .credit { margin-top: 32px; font-size: 14px; opacity: .8; }
   .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
   .notes li { margin-bottom: 4px; }
   .notes a { color: inherit; }
@@ -131,27 +136,15 @@
   <div class="notes">
     <h1 class="display"><span>Queso</span><span>you're</span><span>great</span></h1>
 
-    <h2>Overview:</h2>
-    <p>Every version of the Queso You're Great logo so far, plus the chill chip taking a well-earned queso bath.</p>
+    <h2>A little extra cheese. A lot of good vibes.</h2>
+    <p>Queso You're Great is a little passion project born from my love of playful branding, fun design, and, obviously, chips and queso.</p>
+    <p>It's my creative playground — a place to experiment with illustration, typography, color, and all the weird and wonderful ways one little phrase can come to life.</p>
+    <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
+    <p>Think of it as a cheesy reminder that design doesn't always have to be so serious.</p>
+    <p class="sign">And in case no one's told you today: queso you're great.</p>
+    <p class="ps">P.S. This little project pairs perfectly with my husband's equally food-obsessed creation, Adam Eats a Burrito</p>
 
-    <h2>Logos:</h2>
-    <ul>
-      <li>Retro script with a stacked drop shadow</li>
-      <li>Chunky 70s serif</li>
-      <li>Rounded lowercase and tall capitals</li>
-    </ul>
-
-    <h2>Characters:</h2>
-    <ul>
-      <li>The chill chip, in a floral bowl and as stickers</li>
-      <li>The round red-bowl sticker</li>
-    </ul>
-
-    <h2>Colour palette:</h2>
-    <p>Queso yellow and orange on blues, greens and a deep red.</p>
-
-    <h2>Designed by:</h2>
-    <p><a href="https://sarahleach.design">Sarah Leach</a></p>
+    <p class="credit">Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
   </div>
 
   <div>
