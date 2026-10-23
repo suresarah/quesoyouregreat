@@ -159,11 +159,14 @@
     position: fixed; inset: 0; z-index: 20;
     display: grid; place-items: center;
     background: #fedb02;
-    clip-path: circle(150vmax at var(--ix, 50%) var(--iy, 50%));
-    transition: clip-path 1s cubic-bezier(.65,0,.35,1), visibility 0s 1s;
+    --r: 0px;
+    -webkit-mask: radial-gradient(circle at var(--ix, 50%) var(--iy, 50%), transparent var(--r), #000 calc(var(--r) + 1px));
+    mask: radial-gradient(circle at var(--ix, 50%) var(--iy, 50%), transparent var(--r), #000 calc(var(--r) + 1px));
+    transition: --r 1s cubic-bezier(.65,0,.35,1), visibility 0s 1s;
   }
-  /* spotlight out: the circle closes in on the splash and the site appears around it */
-  .loader.done { clip-path: circle(0 at var(--ix, 50%) var(--iy, 50%)); visibility: hidden; }
+  /* spotlight: a circle opens from the splash and the site appears through it */
+  @property --r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+  .loader.done { --r: 150vmax; visibility: hidden; }
   .loader-scene {
     --u: calc(100cqw / 1200);
     container-type: inline-size;
@@ -293,7 +296,7 @@
     big.src = img.src; big.alt = img.alt;
     box.hidden = false;
   }));
-  // keep the dive going until the page has loaded, then spotlight out on the splash
+  // keep the dive going until the page has loaded, then open a spotlight from the splash
   const loader = document.querySelector('.loader');
   const chip = loader.querySelector('.loader-chip');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
