@@ -92,7 +92,17 @@
   .notes .ps:hover .ps-name { color: var(--coral); }
   .notes .ps img { width: 104px; aspect-ratio: 1; object-fit: contain; flex: none; padding: 8px; border-radius: 14px; background: var(--cream); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
   .notes .ps p { margin: 0; max-width: none; }
-  .notes .credit { margin-top: 32px; font-size: 14px; opacity: .8; }
+  .notes .credit {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-top: 32px;
+    color: var(--text);
+    font-size: 14px;
+    text-decoration: none;
+    opacity: .8;
+    transition: opacity .2s;
+  }
+  .notes .credit:hover, .notes .credit:focus-visible { opacity: 1; }
+  .credit-logo { width: 64px; filter: invert(1); }
   .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
   .notes li { margin-bottom: 4px; }
   .notes a { color: inherit; }
@@ -230,7 +240,10 @@
       <p>This little project pairs perfectly with <span class="ps-name">Adam Eats a Burrito</span>, another food brand I designed where my husband eats burritos.</p>
     </a>
 
-    <p class="credit">Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
+    <a class="credit" href="https://sarahleach.design" target="_blank" rel="noopener">
+      <img class="credit-logo" src="img/sarahleach-logo.png" alt="Sarah Leach">
+      <span>© 2026 Sarah Leach</span>
+    </a>
   </div>
 
   <div>
