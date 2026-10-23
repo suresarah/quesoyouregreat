@@ -116,7 +116,8 @@
   }
   .tile:hover { transform: scale(1.04); }
   .tile:focus-visible { outline: 3px solid var(--mustard); outline-offset: 4px; }
-  .tile img { width: 100%; height: 100%; object-fit: contain; padding: 10%; }
+  .tile { position: relative; }
+  .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7%; }
   .tile.full img { object-fit: cover; padding: 0; }
 
   .swatches {
@@ -177,14 +178,14 @@
 
   <div>
     <div class="grid">
-      <button class="tile full" style="--bg:var(--blue)"><img loading="lazy" src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
+      <button class="tile" style="--bg:#499dba"><img loading="lazy" src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
       <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/chip-07.png" alt="Queso You're Great in navy script with a yellow drop shadow"></button>
       <button class="tile full" style="--bg:var(--cream)"><img loading="lazy" src="img/chip-01.png" alt="A sleepy tortilla chip relaxing in a bowl of queso"></button>
-      <button class="tile full" style="--bg:var(--sky)"><img loading="lazy" src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
+      <button class="tile" style="--bg:#9bc9e5"><img loading="lazy" src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
 
-      <button class="tile full" style="--bg:var(--red)"><img loading="lazy" src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
+      <button class="tile" style="--bg:#8d261e"><img loading="lazy" src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
       <button class="tile" style="--bg:var(--blue)"><img loading="lazy" src="img/chip-12.png" alt="Queso You're Great sticker with the chill chip in yellow"></button>
-      <button class="tile full" style="--bg:var(--teal)"><img loading="lazy" src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
+      <button class="tile" style="--bg:#14bbb0"><img loading="lazy" src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
       <button class="tile" style="--bg:var(--cream)"><img loading="lazy" src="img/apologize-06.png" alt="Round coral sticker of a chip lounging in queso saying it's cheesy"></button>
 
       <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/chip-10.png" alt="Queso You're Great in navy monoline script"></button>
