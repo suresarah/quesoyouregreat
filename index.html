@@ -12,13 +12,14 @@
   :root {
     --board: #2a2724;
     --text: #efe6d6;
-    --cream: #f4ead6;
-    --mustard: #f0b843;
-    --orange: #df7a30;
-    --brick: #973a26;
-    --olive: #4a5a32;
-    --navy: #2b4a68;
-    --sky: #a9c8da;
+    --cream: #faf6ec;
+    --yellow: #ffd21f;
+    --tangerine: #fa7615;
+    --coral: #f45348;
+    --sky: #93cdf0;
+    --cobalt: #1a5bd3;
+    --teal: #14bbb0;
+    --green: #3ab54a;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
@@ -50,7 +51,7 @@
   .notes { container-type: inline-size; }
   .notes h1 {
     margin: 0 0 40px;
-    color: var(--mustard);
+    color: var(--yellow);
     font-size: calc(100cqi / 7.4);
     white-space: nowrap;
   }
@@ -60,13 +61,13 @@
   @keyframes rise { from { opacity: 0; transform: translateY(.25em); } }
   .notes h2 {
     margin: 32px 0 6px;
-    color: var(--mustard);
+    color: var(--yellow);
     font-size: 17px;
     font-weight: 700;
   }
   .notes h2 { margin-top: 0; font-size: 20px; }
   .notes p { margin: 0 0 14px; max-width: 46ch; }
-  .notes .sign { color: var(--mustard); font-weight: 700; }
+  .notes .sign { color: var(--yellow); font-weight: 700; }
   .notes .ps {
     display: flex; align-items: center; gap: 16px;
     max-width: 46ch;
@@ -83,11 +84,11 @@
   }
   .notes .ps:hover, .notes .ps:focus-visible {
     transform: rotate(-1.5deg) translateY(-4px);
-    box-shadow: 0 12px 0 var(--mustard);
+    box-shadow: 0 12px 0 var(--yellow);
   }
-  .notes .ps:focus-visible { outline: 3px solid var(--mustard); outline-offset: 4px; }
+  .notes .ps:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .notes .ps-name { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-  .notes .ps:hover .ps-name { color: var(--brick); }
+  .notes .ps:hover .ps-name { color: var(--coral); }
   .notes .ps img { width: 96px; flex: none; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
   .notes .ps:hover img { transform: rotate(6deg) scale(1.06); }
   .notes .ps p { margin: 0; max-width: none; }
@@ -113,7 +114,7 @@
     transition: transform .25s cubic-bezier(.2,.8,.2,1);
   }
   .tile:hover { transform: scale(1.04); }
-  .tile:focus-visible { outline: 3px solid var(--mustard); outline-offset: 4px; }
+  .tile:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
   .tile { position: relative; }
   .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7%; }
   .tile.full img { object-fit: cover; padding: 0; }
@@ -168,7 +169,7 @@
     <p class="sign">And in case no one's told you today: queso you're great.</p>
     <a class="ps" href="https://www.instagram.com/adameatsaburrito/" target="_blank" rel="noopener">
       <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
-      <p>This little project pairs perfectly with my husband's equally food-obsessed creation, <span class="ps-name">Adam Eats a Burrito</span></p>
+      <p>This little project pairs perfectly with <span class="ps-name">Adam Eats a Burrito</span>, another food-obsessed brand I designed. My husband Adam just eats the burritos.</p>
     </a>
 
     <p class="credit">Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
@@ -176,47 +177,48 @@
 
   <div>
     <div class="grid">
-      <button class="tile" style="--bg:var(--navy)"><img loading="lazy" src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
-      <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/apologize-05.png" alt="Blue Queso You're Great sticker with a chip leaping toward a bowl"></button>
+      <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/queso2026-02.png" alt="Queso You're Great in orange retro script on blue"></button>
+      <button class="tile" style="--bg:var(--yellow)"><img loading="lazy" src="img/apologize-06.png" alt="Round coral sticker of a chip lounging in queso saying it's cheesy"></button>
+      <button class="tile" style="--bg:var(--teal)"><img loading="lazy" src="img/apologize-14.png" alt="Queso You're Great sign with yellow capitals and red script"></button>
+      <button class="tile" style="--bg:var(--green)"><img loading="lazy" src="img/apologize-12.png" alt="Queso You're Great in chunky orange capitals"></button>
+
+      <button class="tile" style="--bg:var(--coral)"><img loading="lazy" src="img/apologize-05.png" alt="Blue Queso You're Great sticker with a chip leaping toward a bowl"></button>
+      <button class="tile" style="--bg:var(--teal)"><img loading="lazy" src="img/apologize-08.png" alt="Queso You're Great in bold blue brush script"></button>
       <button class="tile full" style="--bg:var(--cream)"><img loading="lazy" src="img/chippy.png" alt="A tortilla chip zooming down a slide into a pool of queso"></button>
-      <button class="tile" style="--bg:var(--orange)"><img loading="lazy" src="img/chip-07.png" alt="Queso You're Great in navy script with a yellow drop shadow"></button>
+      <button class="tile" style="--bg:var(--teal)"><img loading="lazy" src="img/apologize-09.png" alt="Red Queso You're Great label sticker"></button>
 
-      <button class="tile" style="--bg:var(--brick)"><img loading="lazy" src="img/bowl-guy.png" alt="A smiling chip lounging in a bowl of queso"></button>
-      <button class="tile" style="--bg:var(--olive)"><img loading="lazy" src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
-      <button class="tile" style="--bg:var(--navy)"><img loading="lazy" src="img/apologize-07.png" alt="Yellow and red Queso You're Great badge with a chip cannonballing into queso"></button>
+      <button class="tile" style="--bg:var(--yellow)"><img loading="lazy" src="img/apologize-10.png" alt="Queso You're Great in red handwritten script"></button>
+      <button class="tile" style="--bg:var(--cream)"><img loading="lazy" src="img/apologize-15.png" alt="Blue and yellow Queso You're Great patch"></button>
+      <button class="tile" style="--bg:var(--coral)"><img loading="lazy" src="img/chip-07.png" alt="Queso You're Great in navy script with a yellow drop shadow"></button>
+      <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/apologize-13.png" alt="Round yellow-rimmed sticker of a cheerful chip in a red bowl"></button>
+
+      <button class="tile" style="--bg:var(--green)"><img loading="lazy" src="img/apologize-07.png" alt="Yellow and red Queso You're Great badge with a chip cannonballing into queso"></button>
+      <button class="tile" style="--bg:var(--teal)"><img loading="lazy" src="img/queso2026-05.png" alt="Queso You're Great in tall capitals on teal"></button>
+      <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/chip-13.png" alt="Queso You're Great sticker with the chill chip in navy"></button>
+      <button class="tile" style="--bg:var(--tangerine)"><img loading="lazy" src="img/chip-10.png" alt="Queso You're Great in navy monoline script"></button>
+
+      <button class="tile" style="--bg:var(--cobalt)"><img loading="lazy" src="img/apologize-16.png" alt="Round coral badge with Queso You're Great in swirly yellow lettering"></button>
       <button class="tile full" style="--bg:var(--cream)"><img loading="lazy" src="img/chip-01.png" alt="A sleepy tortilla chip relaxing in a bowl of queso"></button>
+      <button class="tile" style="--bg:var(--cobalt)"><img loading="lazy" src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
+      <button class="tile" style="--bg:var(--coral)"><img loading="lazy" src="img/chip-12.png" alt="Queso You're Great sticker with the chill chip in yellow"></button>
 
+      <button class="tile" style="--bg:var(--coral)"><img loading="lazy" src="img/bowl-guy.png" alt="A smiling chip lounging in a bowl of queso"></button>
       <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/apologize-11.png" alt="Orange square Queso You're Great badge with a chip splashing into a bowl"></button>
-      <button class="tile" style="--bg:var(--navy)"><img loading="lazy" src="img/apologize-06.png" alt="Round coral sticker of a chip lounging in queso saying it's cheesy"></button>
-      <button class="tile" style="--bg:var(--brick)"><img loading="lazy" src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
-      <button class="tile" style="--bg:var(--orange)"><img loading="lazy" src="img/apologize-14.png" alt="Queso You're Great sign with yellow capitals and red script"></button>
+      <button class="tile" style="--bg:var(--green)"><img loading="lazy" src="img/apologize-18.png" alt="Queso You're Great, Adam eats a burrito: a bearded guy high-fiving a chip in a bowl"></button>
+      <button class="tile" style="--bg:var(--tangerine)"><img loading="lazy" src="img/apologize-17.png" alt="Queso You're Great in bold blue capitals with bursts"></button>
 
-      <button class="tile" style="--bg:var(--olive)"><img loading="lazy" src="img/apologize-18.png" alt="Queso You're Great, Adam eats a burrito: a bearded guy high-fiving a chip in a bowl"></button>
-      <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/apologize-08.png" alt="Queso You're Great in bold blue brush script"></button>
-      <button class="tile" style="--bg:var(--olive)"><img loading="lazy" src="img/apologize-13.png" alt="Round yellow-rimmed sticker of a cheerful chip in a red bowl"></button>
-      <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/apologize-10.png" alt="Queso You're Great in red handwritten script"></button>
-
-      <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/queso2026-03.png" alt="Queso You're Great in rounded lowercase on light blue"></button>
-      <button class="tile" style="--bg:var(--brick)"><img loading="lazy" src="img/chip-12.png" alt="Queso You're Great sticker with the chill chip in yellow"></button>
-      <button class="tile" style="--bg:var(--navy)"><img loading="lazy" src="img/apologize-12.png" alt="Queso You're Great in chunky orange capitals"></button>
-      <button class="tile" style="--bg:var(--brick)"><img loading="lazy" src="img/apologize-15.png" alt="Blue and yellow Queso You're Great patch"></button>
-
-      <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/apologize-09.png" alt="Red Queso You're Great label sticker"></button>
-      <button class="tile" style="--bg:var(--sky)"><img loading="lazy" src="img/chip-10.png" alt="Queso You're Great in navy monoline script"></button>
-      <button class="tile" style="--bg:var(--olive)"><img loading="lazy" src="img/apologize-17.png" alt="Queso You're Great in bold blue capitals with bursts"></button>
-      <button class="tile" style="--bg:var(--mustard)"><img loading="lazy" src="img/apologize-16.png" alt="Round coral badge with Queso You're Great in swirly yellow lettering"></button>
-
-      <button class="tile" style="--bg:var(--orange)"><img loading="lazy" src="img/chip-13.png" alt="Queso You're Great sticker with the chill chip in navy"></button>
+      <button class="tile" style="--bg:var(--cobalt)"><img loading="lazy" src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
     </div>
 
     <ul class="swatches" aria-label="Colour palette">
-      <li style="--c:var(--mustard)"></li>
-      <li style="--c:var(--orange)"></li>
-      <li style="--c:var(--brick)"></li>
+      <li style="--c:var(--yellow)"></li>
+      <li style="--c:var(--tangerine)"></li>
+      <li style="--c:var(--coral)"></li>
       <li style="--c:var(--cream)"></li>
       <li style="--c:var(--sky)"></li>
-      <li style="--c:var(--navy)"></li>
-      <li style="--c:var(--olive)"></li>
+      <li style="--c:var(--cobalt)"></li>
+      <li style="--c:var(--teal)"></li>
+      <li style="--c:var(--green)"></li>
     </ul>
   </div>
 </main>
