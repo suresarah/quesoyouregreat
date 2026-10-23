@@ -69,7 +69,18 @@
   .notes h2 { margin-top: 0; font-size: 20px; }
   .notes p { margin: 0 0 14px; max-width: 46ch; }
   .notes .sign { color: var(--mustard); font-weight: 700; }
-  .notes .ps { font-size: 14px; opacity: .8; }
+  .notes .ps {
+    display: flex; align-items: center; gap: 16px;
+    max-width: 46ch;
+    margin-top: 24px;
+    padding: 14px 18px 14px 14px;
+    border-radius: 14px;
+    background: var(--cream);
+    color: var(--board);
+    font-size: 14px;
+  }
+  .notes .ps img { width: 96px; flex: none; }
+  .notes .ps p { margin: 0; max-width: none; }
   .notes .credit { margin-top: 32px; font-size: 14px; opacity: .8; }
   .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
   .notes li { margin-bottom: 4px; }
@@ -145,7 +156,10 @@
     <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
     <p>Think of it as a cheesy reminder that design doesn't always have to be so serious.</p>
     <p class="sign">And in case no one's told you today: queso you're great.</p>
-    <p class="ps">P.S. This little project pairs perfectly with my husband's equally food-obsessed creation, Adam Eats a Burrito</p>
+    <div class="ps">
+      <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
+      <p>P.S. This little project pairs perfectly with my husband's equally food-obsessed creation, Adam Eats a Burrito</p>
+    </div>
 
     <p class="credit">Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
   </div>
