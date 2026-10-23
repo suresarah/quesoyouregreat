@@ -186,19 +186,6 @@
   .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7%; }
   .tile.full img { object-fit: cover; padding: 0; }
 
-  .swatches {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 32px;
-    padding: 0;
-    list-style: none;
-  }
-  .swatches li {
-    width: 76px; height: 30px;
-    border-radius: 999px;
-    background: var(--c);
-  }
 
   .lightbox {
     position: fixed; inset: 0;
@@ -214,7 +201,6 @@
     .board { grid-template-columns: 1fr; gap: 40px; padding: 40px 16px; }
     .notes { position: static; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .swatches li { width: 56px; height: 24px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .notes h1 span { animation: none; }
@@ -282,16 +268,6 @@
       <button class="tile" style="--bg:var(--cobalt)"><img loading="lazy" src="img/queso2026-07.png" alt="Queso You're Great in chunky serif on deep red"></button>
     </div>
 
-    <ul class="swatches" aria-label="Colour palette">
-      <li style="--c:var(--yellow)"></li>
-      <li style="--c:var(--tangerine)"></li>
-      <li style="--c:var(--coral)"></li>
-      <li style="--c:var(--cream)"></li>
-      <li style="--c:var(--sky)"></li>
-      <li style="--c:var(--cobalt)"></li>
-      <li style="--c:var(--teal)"></li>
-      <li style="--c:var(--green)"></li>
-    </ul>
   </div>
 </main>
 
