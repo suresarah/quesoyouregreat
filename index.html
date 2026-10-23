@@ -111,10 +111,57 @@
     display: grid;
     place-items: center;
     background: var(--bg, var(--sky));
-    transition: transform .25s cubic-bezier(.2,.8,.2,1);
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
   }
-  .tile:hover { transform: scale(1.04); }
-  .tile:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
+
+  /* game show panel: marquee bulbs chase around the edge and the panel lights up */
+  .tile::before, .tile::after {
+    --s: 20px;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: var(--s);
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  .tile::before {
+    background:
+      radial-gradient(circle at calc(var(--s) / 2) calc(var(--s) / 2), #fffbe8 0 3px, rgba(255, 236, 160, .6) 4px, transparent 6.5px),
+      radial-gradient(circle at calc(var(--s) * 1.5) calc(var(--s) * 1.5), #fffbe8 0 3px, rgba(255, 236, 160, .6) 4px, transparent 6.5px);
+    background-size: calc(var(--s) * 2) calc(var(--s) * 2);
+  }
+  .tile::after {
+    background:
+      radial-gradient(circle at calc(var(--s) * 1.5) calc(var(--s) / 2), #fffbe8 0 3px, rgba(255, 236, 160, .6) 4px, transparent 6.5px),
+      radial-gradient(circle at calc(var(--s) / 2) calc(var(--s) * 1.5), #fffbe8 0 3px, rgba(255, 236, 160, .6) 4px, transparent 6.5px);
+    background-size: calc(var(--s) * 2) calc(var(--s) * 2);
+  }
+  .tile img { z-index: 2; }
+  .tile:hover, .tile:focus-visible {
+    z-index: 3;
+    transform: scale(1.03);
+    box-shadow:
+      inset 0 0 0 3px rgba(255, 248, 214, .9),
+      inset 0 0 36px rgba(255, 255, 255, .35),
+      0 0 18px 3px color-mix(in srgb, var(--bg) 60%, #fff),
+      0 0 54px 8px var(--bg);
+    animation: power-on .45s ease-out both;
+  }
+  .tile:hover::before, .tile:focus-visible::before { animation: bulbs .6s steps(1) infinite; }
+  .tile:hover::after, .tile:focus-visible::after { animation: bulbs .6s steps(1) -.3s infinite; }
+  @keyframes bulbs { 0% { opacity: 1; } 50% { opacity: .12; } }
+  @keyframes power-on {
+    0% { filter: brightness(1); }
+    20% { filter: brightness(1.5) saturate(1.2); }
+    35% { filter: brightness(.92); }
+    55% { filter: brightness(1.35) saturate(1.2); }
+    100% { filter: brightness(1.1) saturate(1.15); }
+  }
   .tile { position: relative; }
   .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 7%; }
   .tile.full img { object-fit: cover; padding: 0; }
@@ -152,6 +199,9 @@
   @media (prefers-reduced-motion: reduce) {
     .notes h1 span { animation: none; }
     .tile, .notes .ps, .notes .ps img { transition: none; }
+    .tile:hover, .tile:focus-visible { animation: none; filter: brightness(1.1); }
+    .tile:hover::before, .tile:focus-visible::before { animation: none; opacity: 1; }
+    .tile:hover::after, .tile:focus-visible::after { animation: none; opacity: 0; }
   }
 </style>
 </head>
