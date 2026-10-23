@@ -74,7 +74,6 @@
   .notes .sign { color: var(--yellow); font-weight: 700; }
   .notes .sign { line-height: 2; }
   .notes .sign img { height: 40px; vertical-align: middle; margin-left: 4px; }
-  .nowrap { white-space: nowrap; }
   .replay { all: unset; cursor: pointer; display: inline-block; transition: transform .18s cubic-bezier(.3,1.6,.5,1); }
   @media (hover: hover) { .replay:hover { transform: translateY(-3px) rotate(-2deg); } }
   .replay:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; border-radius: 10px; }
@@ -165,6 +164,9 @@
   @media (max-width: 900px) {
     .board { grid-template-columns: 1fr; gap: 40px; padding: 40px 16px; }
     .site-footer { padding: 8px 16px 40px; }
+    .notes .sign { line-height: 1.5; }
+    .notes .sign .replay { display: block; width: max-content; margin-top: 10px; }
+    .notes .sign img { margin-left: 0; }
     .notes { position: static; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
@@ -250,7 +252,7 @@
     <p>Queso You're Great is a little passion project born from my love of playful branding, fun design, and, obviously, chips and queso.</p>
     <p>A place to experiment with illustration, typography, color, and all the weird and wonderful ways one little phrase can come to life.</p>
     <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
-    <p class="sign">And in case no one's told you <span class="nowrap">today <button class="replay" type="button" title="Take the plunge again"><img src="img/label-yellow.png" alt="queso you're great."></button></span></p>
+    <p class="sign">And in case no one's told you today <button class="replay" type="button" title="Take the plunge again"><img src="img/label-yellow.png" alt="queso you're great."></button></p>
     <a class="ps" href="https://www.instagram.com/adameatsaburrito/" target="_blank" rel="noopener">
       <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
       <p>This little project pairs perfectly with <span class="ps-name">Adam Eats a Burrito</span>, another food brand I designed where my husband eats burritos.</p>
