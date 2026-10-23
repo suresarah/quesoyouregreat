@@ -49,16 +49,16 @@
   }
   .notes { align-self: start; }
   @media (min-width: 901px) and (min-height: 960px) { .notes { position: sticky; top: 56px; } }
-  .board h1 {
-    grid-column: 1 / -1;
-    margin: 0 0 8px;
+  .notes { container-type: inline-size; }
+  .notes h1 {
+    margin: 0 0 40px;
     color: var(--mustard);
-    font-size: min(190px, calc((100vw - 80px) / 7.4));
+    font-size: calc(100cqi / 7.4);
     white-space: nowrap;
   }
-  .board h1 span { display: inline-block; animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
-  .board h1 span:nth-child(2) { animation-delay: .1s; }
-  .board h1 span:nth-child(3) { animation-delay: .2s; }
+  .notes h1 span { display: inline-block; animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
+  .notes h1 span:nth-child(2) { animation-delay: .1s; }
+  .notes h1 span:nth-child(3) { animation-delay: .2s; }
   @keyframes rise { from { opacity: 0; transform: translateY(.25em); } }
   .notes h2 {
     margin: 32px 0 6px;
@@ -136,10 +136,9 @@
     .notes { position: static; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .swatches li { width: 56px; height: 24px; }
-    .board h1 { font-size: calc((100vw - 32px) / 7.4); margin-bottom: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .board h1 span { animation: none; }
+    .notes h1 span { animation: none; }
     .tile { transition: none; }
   }
 </style>
@@ -147,8 +146,8 @@
 <body>
 
 <main class="board">
-  <h1 class="display"><span>queso</span> <span>you’re</span> <span>great</span></h1>
   <div class="notes">
+    <h1 class="display"><span>queso</span> <span>you’re</span> <span>great</span></h1>
 
     <h2>A little extra cheese. A lot of good vibes.</h2>
     <p>Queso You're Great is a little passion project born from my love of playful branding, fun design, and, obviously, chips and queso.</p>
