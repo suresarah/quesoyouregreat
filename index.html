@@ -159,9 +159,11 @@
     position: fixed; inset: 0; z-index: 20;
     display: grid; place-items: center;
     background: #fedb02;
-    transition: opacity .45s ease, visibility .45s;
+    clip-path: circle(150vmax at var(--ix, 50%) var(--iy, 50%));
+    transition: clip-path 1s cubic-bezier(.65,0,.35,1), visibility 0s 1s;
   }
-  .loader.done { opacity: 0; visibility: hidden; }
+  /* spotlight out: the circle closes in on the splash and the site appears around it */
+  .loader.done { clip-path: circle(0 at var(--ix, 50%) var(--iy, 50%)); visibility: hidden; }
   .loader-scene {
     --u: calc(100cqw / 1200);
     container-type: inline-size;
@@ -291,22 +293,28 @@
     big.src = img.src; big.alt = img.alt;
     box.hidden = false;
   }));
-  // keep the dive going until the page has loaded and the chip has made at least one full splash
+  // keep the dive going until the page has loaded, then spotlight out on the splash
   const loader = document.querySelector('.loader');
   const chip = loader.querySelector('.loader-chip');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let loaded = false, dives = 0;
+  const LOOP = 2200, SPLASH = 0.7 * LOOP; // the splash is at full size 70% of the way through a dive
   function finish() {
-    if (!loaded || (!still && dives < 1) || loader.classList.contains('done')) return;
+    if (loader.classList.contains('done')) return;
+    // centre the spotlight on the splash
+    const r = loader.querySelector('.loader-scene').getBoundingClientRect();
+    loader.style.setProperty('--ix', r.left + r.width * 745 / 1200 + 'px');
+    loader.style.setProperty('--iy', r.top + r.height * 470 / 825 + 'px');
     loader.classList.add('done');
     document.body.classList.remove('loading');
   }
-  chip.addEventListener('animationiteration', () => { dives++; finish(); });
   addEventListener('load', () => {
-    loaded = true;
-    finish();
-    // fallback in case the animation is paused (background tab) and never reports a full dive
-    setTimeout(() => { dives = Math.max(dives, 1); finish(); }, 2400);
+    if (still) return finish();
+    // wait for the first splash (or the next one, if the page took longer), then spotlight out
+    const anim = chip.getAnimations()[0];
+    const t = anim && typeof anim.currentTime === 'number' ? anim.currentTime : 0;
+    let wait = Math.ceil((t - SPLASH) / LOOP) * LOOP + SPLASH - t;
+    if (wait < 0) wait += LOOP;
+    setTimeout(finish, wait);
   });
   box.addEventListener('click', () => box.hidden = true);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') box.hidden = true; });
