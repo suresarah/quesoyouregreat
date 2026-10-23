@@ -155,6 +155,26 @@
   .tile:hover::before, .tile:focus-visible::before { animation: bulbs .6s steps(1) infinite; }
   .tile:hover::after, .tile:focus-visible::after { animation: bulbs .6s steps(1) -.3s infinite; }
   @keyframes bulbs { 0% { opacity: 1; } 50% { opacity: .12; } }
+
+  /* on load the board lights up in a diagonal wave, each panel catching a shimmer */
+  .shine {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, .5) 47%, rgba(255, 253, 235, .95) 50%, rgba(255, 255, 255, .5) 53%, transparent 65%);
+    background-size: 250% 100%;
+    background-position: 110% 0;
+    animation: shimmer 1.1s var(--d, 0s) cubic-bezier(.45,.05,.35,1) both;
+  }
+  @keyframes shimmer { to { background-position: -10% 0; } }
+  .tile.glint { animation: glint 1.1s var(--d, 0s) ease-out both; }
+  @keyframes glint {
+    0%, 100% { filter: none; }
+    30% { filter: brightness(1.3) saturate(1.15); }
+    45% { filter: brightness(1.05); }
+    60% { filter: brightness(1.2) saturate(1.1); }
+  }
   @keyframes power-on {
     0% { filter: brightness(1); }
     20% { filter: brightness(1.5) saturate(1.2); }
@@ -200,6 +220,8 @@
     .notes h1 span { animation: none; }
     .tile, .notes .ps, .notes .ps img { transition: none; }
     .tile:hover, .tile:focus-visible { animation: none; filter: brightness(1.1); }
+    .shine { display: none; }
+    .tile.glint { animation: none; }
     .tile:hover::before, .tile:focus-visible::before { animation: none; opacity: 1; }
     .tile:hover::after, .tile:focus-visible::after { animation: none; opacity: 0; }
   }
@@ -283,6 +305,20 @@
     big.src = img.src; big.alt = img.alt;
     box.hidden = false;
   }));
+  // light the board up in a diagonal wave on load
+  const tiles = [...document.querySelectorAll('.tile')];
+  const x0 = tiles[0].offsetLeft, y0 = tiles[0].offsetTop;
+  const step = tiles[1].offsetLeft - x0 || tiles[0].offsetWidth;
+  tiles.forEach(t => {
+    const col = Math.round((t.offsetLeft - x0) / step), row = Math.round((t.offsetTop - y0) / step);
+    const d = (row + col) * 0.09 + 0.3 + 's';
+    t.style.setProperty('--d', d);
+    t.classList.add('glint');
+    const shine = document.createElement('span');
+    shine.className = 'shine';
+    t.append(shine);
+    shine.addEventListener('animationend', () => { shine.remove(); t.classList.remove('glint'); });
+  });
   box.addEventListener('click', () => box.hidden = true);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') box.hidden = true; });
 </script>
