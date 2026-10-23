@@ -68,9 +68,11 @@
   .notes h2 { margin-top: 0; font-size: 20px; }
   .notes p { margin: 0 0 14px; max-width: 46ch; }
   .notes .sign { color: var(--yellow); font-weight: 700; }
-  .notes .sign img { height: 40px; vertical-align: middle; margin: -6px 0 -4px 4px; }
+  .notes .sign { line-height: 2; }
+  .notes .sign img { height: 40px; vertical-align: middle; margin-left: 4px; }
+  .nowrap { white-space: nowrap; }
   .replay { all: unset; cursor: pointer; display: inline-block; transition: transform .18s cubic-bezier(.3,1.6,.5,1); }
-  .replay:hover { transform: translateY(-3px) rotate(-2deg); }
+  @media (hover: hover) { .replay:hover { transform: translateY(-3px) rotate(-2deg); } }
   .replay:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; border-radius: 10px; }
   .notes .ps {
     display: flex; align-items: center; gap: 16px;
@@ -96,16 +98,20 @@
   .notes .ps:hover .ps-name { color: var(--coral); }
   .notes .ps img { width: 104px; aspect-ratio: 1; object-fit: contain; flex: none; padding: 8px; border-radius: 14px; background: var(--cream); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
   .notes .ps p { margin: 0; max-width: none; }
-  .notes .credit {
+  .site-footer {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 24px 40px 48px;
+  }
+  .credit {
     display: inline-flex; align-items: center; gap: 14px;
-    margin-top: 32px;
     color: var(--text);
     font-size: 14px;
     text-decoration: none;
     opacity: .8;
     transition: opacity .2s;
   }
-  .notes .credit:hover, .notes .credit:focus-visible { opacity: 1; }
+  .credit:hover, .credit:focus-visible { opacity: 1; }
   .credit-logo { width: 64px; filter: invert(1); }
   .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
   .notes li { margin-bottom: 4px; }
@@ -154,6 +160,7 @@
 
   @media (max-width: 900px) {
     .board { grid-template-columns: 1fr; gap: 40px; padding: 40px 16px; }
+    .site-footer { padding: 8px 16px 40px; }
     .notes { position: static; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   }
@@ -239,16 +246,12 @@
     <p>Queso You're Great is a little passion project born from my love of playful branding, fun design, and, obviously, chips and queso.</p>
     <p>A place to experiment with illustration, typography, color, and all the weird and wonderful ways one little phrase can come to life.</p>
     <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
-    <p class="sign">And in case no one's told you today <button class="replay" type="button" title="Take the plunge again"><img src="img/label-yellow.png" alt="queso you're great."></button></p>
+    <p class="sign">And in case no one's told you <span class="nowrap">today <button class="replay" type="button" title="Take the plunge again"><img src="img/label-yellow.png" alt="queso you're great."></button></span></p>
     <a class="ps" href="https://www.instagram.com/adameatsaburrito/" target="_blank" rel="noopener">
       <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
       <p>This little project pairs perfectly with <span class="ps-name">Adam Eats a Burrito</span>, another food brand I designed where my husband eats burritos.</p>
     </a>
 
-    <a class="credit" href="https://sarahleach.design" target="_blank" rel="noopener">
-      <img class="credit-logo" src="img/sarahleach-logo.png" alt="Sarah Leach">
-      <span>© 2026 Sarah Leach</span>
-    </a>
   </div>
 
   <div>
@@ -288,6 +291,13 @@
 
   </div>
 </main>
+
+<footer class="site-footer">
+  <a class="credit" href="https://sarahleach.design" target="_blank" rel="noopener">
+    <img class="credit-logo" src="img/sarahleach-logo.png" alt="Sarah Leach">
+    <span>© 2026 Sarah Leach</span>
+  </a>
+</footer>
 
 <div class="lightbox" hidden><img alt=""></div>
 
