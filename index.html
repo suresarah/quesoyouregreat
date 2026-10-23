@@ -79,7 +79,19 @@
     color: var(--board);
     font-size: 14px;
   }
-  .notes .ps img { width: 96px; flex: none; }
+  .notes .ps {
+    text-decoration: none;
+    transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s;
+  }
+  .notes .ps:hover, .notes .ps:focus-visible {
+    transform: rotate(-1.5deg) translateY(-4px);
+    box-shadow: 0 12px 0 var(--mustard);
+  }
+  .notes .ps:focus-visible { outline: 3px solid var(--mustard); outline-offset: 4px; }
+  .notes .ps-name { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .notes .ps:hover .ps-name { color: #c4442a; }
+  .notes .ps img { width: 96px; flex: none; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .notes .ps:hover img { transform: rotate(6deg) scale(1.06); }
   .notes .ps p { margin: 0; max-width: none; }
   .notes .credit { margin-top: 32px; font-size: 14px; opacity: .8; }
   .notes ul { margin: 0; padding-left: 1.1em; max-width: 46ch; }
@@ -139,7 +151,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .notes h1 span { animation: none; }
-    .tile { transition: none; }
+    .tile, .notes .ps, .notes .ps img { transition: none; }
   }
 </style>
 </head>
@@ -155,10 +167,10 @@
     <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
     <p>Think of it as a cheesy reminder that design doesn't always have to be so serious.</p>
     <p class="sign">And in case no one's told you today: queso you're great.</p>
-    <div class="ps">
+    <a class="ps" href="https://www.instagram.com/adameatsaburrito/" target="_blank" rel="noopener">
       <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
-      <p>P.S. This little project pairs perfectly with my husband's equally food-obsessed creation, Adam Eats a Burrito</p>
-    </div>
+      <p>This little project pairs perfectly with my husband's equally food-obsessed creation, <span class="ps-name">Adam Eats a Burrito</span></p>
+    </a>
 
     <p class="credit">Designed by <a href="https://sarahleach.design">Sarah Leach</a></p>
   </div>
