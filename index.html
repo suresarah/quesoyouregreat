@@ -74,8 +74,9 @@
     margin-top: 24px;
     padding: 14px 18px 14px 14px;
     border-radius: 14px;
-    background: var(--cream);
-    color: var(--board);
+    background: #1b1917;
+    border: 1px solid rgba(255, 255, 255, .08);
+    color: var(--text);
     font-size: 14px;
   }
   .notes .ps {
@@ -87,9 +88,9 @@
     box-shadow: 0 12px 0 var(--yellow);
   }
   .notes .ps:focus-visible { outline: 3px solid var(--yellow); outline-offset: 4px; }
-  .notes .ps-name { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .notes .ps-name { color: var(--yellow); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
   .notes .ps:hover .ps-name { color: var(--coral); }
-  .notes .ps img { width: 96px; flex: none; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .notes .ps img { width: 104px; flex: none; padding: 8px; border-radius: 10px; background: var(--cream); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
   .notes .ps:hover img { transform: rotate(6deg) scale(1.06); }
   .notes .ps p { margin: 0; max-width: none; }
   .notes .credit { margin-top: 32px; font-size: 14px; opacity: .8; }
