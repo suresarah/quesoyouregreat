@@ -69,6 +69,9 @@
   .notes p { margin: 0 0 14px; max-width: 46ch; }
   .notes .sign { color: var(--yellow); font-weight: 700; }
   .notes .sign img { height: 40px; vertical-align: middle; margin: -6px 0 -4px 4px; }
+  .replay { all: unset; cursor: pointer; display: inline-block; transition: transform .18s cubic-bezier(.3,1.6,.5,1); }
+  .replay:hover { transform: translateY(-3px) rotate(-2deg); }
+  .replay:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; border-radius: 10px; }
   .notes .ps {
     display: flex; align-items: center; gap: 16px;
     max-width: 46ch;
@@ -167,6 +170,7 @@
   /* spotlight: a circle opens from the splash and the site appears through it */
   @property --r { syntax: "<length>"; inherits: false; initial-value: 0px; }
   .loader.done { --r: 150vmax; visibility: hidden; }
+  .loader.reset { transition: none; }
   .loader-scene {
     --u: calc(100cqw / 1200);
     container-type: inline-size;
@@ -236,7 +240,7 @@
     <p>Queso You're Great is a little passion project born from my love of playful branding, fun design, and, obviously, chips and queso.</p>
     <p>A place to experiment with illustration, typography, color, and all the weird and wonderful ways one little phrase can come to life.</p>
     <p>No big strategy. No serious rules. Just an excuse to make fun things, explore new ideas, and put a little more positivity into the world.</p>
-    <p class="sign">And in case no one's told you today <img src="img/label-yellow.png" alt="queso you're great."></p>
+    <p class="sign">And in case no one's told you today <button class="replay" type="button" title="Take the plunge again"><img src="img/label-yellow.png" alt="queso you're great."></button></p>
     <a class="ps" href="https://www.instagram.com/adameatsaburrito/" target="_blank" rel="noopener">
       <img src="img/adam-eats-a-burrito.png" alt="Adam Eats a Burrito logo: a bearded burrito in a knit hat strutting along">
       <p>This little project pairs perfectly with <span class="ps-name">Adam Eats a Burrito</span>, another food brand I designed where my husband eats burritos.</p>
@@ -318,6 +322,21 @@
     let wait = Math.ceil((t - SPLASH) / LOOP) * LOOP + SPLASH - t;
     if (wait < 0) wait += LOOP;
     setTimeout(finish, wait);
+  });
+
+  // clicking the sign-off label replays the dive and opens the spotlight again
+  document.querySelector('.replay').addEventListener('click', () => {
+    if (!loader.classList.contains('done')) return;
+    loader.classList.add('reset');
+    loader.classList.remove('done');
+    loader.querySelectorAll('.loader-chip, .loader-splash').forEach(el => {
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+    void loader.offsetWidth;
+    loader.classList.remove('reset');
+    setTimeout(finish, still ? 1200 : SPLASH);
   });
   box.addEventListener('click', () => box.hidden = true);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') box.hidden = true; });
